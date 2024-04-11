@@ -22,3 +22,24 @@ header h2 {
 .bgNav {
     background-color: #1f2836 !important;
 }
+
+tbody td {
+    padding-top: 3em !important;
+}
+
+.paddingImg {
+    padding-top: 2em !important;
+    padding-bottom: 1em !important;
+}
+
+.fontSize  {
+    font-size: 1em !important;
+    margin-top: -0.5em !important;
+}
+.fontColor  {
+    color: greenyellow !important;
+}
+
+.thPadding {
+    padding-bottom: 0.7em !important;
+}

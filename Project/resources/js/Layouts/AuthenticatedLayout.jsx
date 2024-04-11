@@ -24,28 +24,28 @@ export default function AuthenticatedLayout({ user, header, children }) {
                 <NavLink
                   href={route("dashboard")}
                   active={route().current("dashboard")}
-                  className="text-white"
+                  className="text-white text-decoration-none"
                 >
                   Dashboard
                 </NavLink>
                 <NavLink
                   href={route("project.index")}
                   active={route().current("project.index")}
-                  className="text-white"
+                  className="text-white text-decoration-none"
                 >
                   Projects
                 </NavLink>
                 <NavLink
                   href={route("task.index")}
                   active={route().current("task.index")}
-                  className="text-white"
+                  className="text-white text-decoration-none"
                 >
                   All Tasks
                 </NavLink>
                 <NavLink
                   href={route("user.index")}
                   active={route().current("user.index")}
-                  className="text-white"
+                  className="text-white text-decoration-none"
                 >
                   Users
                 </NavLink>
