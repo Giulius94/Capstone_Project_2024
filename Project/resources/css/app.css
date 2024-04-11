@@ -34,12 +34,27 @@ tbody td {
 
 .fontSize  {
     font-size: 1em !important;
-    margin-top: -0.5em !important;
+    margin-top: -0.3em !important;
 }
 .fontColor  {
     color: greenyellow !important;
 }
 
 .thPadding {
-    padding-bottom: 0.7em !important;
+    padding-bottom: 1em !important;
+}
+
+.paddingIcons {
+    padding: 0 !important;
+    padding-top: 2.2em !important;
+}
+
+.projectDetails {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.projectDetails:hover {
+    color: lightskyblue !important;
+    text-decoration: underline !important;
 }

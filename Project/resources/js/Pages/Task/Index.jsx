@@ -4,12 +4,12 @@ import TableHeading from "@/Components/TableHeading";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import {
-  PROJECT_STATUS_CLASS_MAP,
-  PROJECT_STATUS_TEXT_MAP,
+  TASK_STATUS_CLASS_MAP,
+  TASK_STATUS_TEXT_MAP,
 } from "@/constants.jsx";
 import { Head, Link, router } from "@inertiajs/react";
 
-export default function index({ auth, projects, queryParams = null }) {
+export default function index({ auth, tasks, queryParams = null }) {
   queryParams = queryParams || {};
   const searchFieldChanged = (name, value) => {
     if (value) {
@@ -18,7 +18,7 @@ export default function index({ auth, projects, queryParams = null }) {
       delete queryParams[name];
     }
 
-    router.get(route("project.index"), queryParams);
+    router.get(route("task.index"), queryParams);
   };
 
   const onKeyPress = (name, e) => {
@@ -37,7 +37,7 @@ export default function index({ auth, projects, queryParams = null }) {
       queryParams.sort_field = name;
       queryParams.sort_direction = "asc";
     }
-    router.get(route("project.index"), queryParams);
+    router.get(route("task.index"), queryParams);
   };
 
   return (
@@ -45,7 +45,7 @@ export default function index({ auth, projects, queryParams = null }) {
       user={auth.user}
       header={
         <h2 className="font-semibold text-xl text-gray-800 text-center fst-italic leading-tight">
-          Projects
+          Task
         </h2>
       }
     >
@@ -106,7 +106,7 @@ export default function index({ auth, projects, queryParams = null }) {
                         <TextInput
                           defaultValue={queryParams.name}
                           className="w-full text-white bg-black"
-                          placeholder="Search Project Name"
+                          placeholder="Search Task Name"
                           onBlur={(e) =>
                             searchFieldChanged("name", e.target.value)
                           }
@@ -134,48 +134,41 @@ export default function index({ auth, projects, queryParams = null }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {projects.data.map((project) => (
-                      <tr key={project.id}>
-                        <td>{project.id}</td>
+                    {tasks.data.map((task) => (
+                      <tr key={task.id}>
+                        <td>{task.id}</td>
                         <td className="paddingImg">
                           <img
-                            src={project.image_path}
+                            src={task.image_path}
                             alt="image"
                             width="100"
                             height="100"
                           />
                         </td>
-                        <td className="px-3 py-5 text-nowrap projectDetails">
-                          <Link
-                            href={route("project.show", project.id)}
-                            className="projectDetails"
-                          >
-                            {project.name}
-                          </Link>
-                        </td>
+                        <td>{task.name}</td>
                         <td>
                           <span
                             className={
                               "px-2 py-1 rounded text-white " +
-                              PROJECT_STATUS_CLASS_MAP[project.status]
+                              TASK_STATUS_CLASS_MAP[task.status]
                             }
                           >
-                            {PROJECT_STATUS_TEXT_MAP[project.status]}
+                            {TASK_STATUS_TEXT_MAP[task.status]}
                           </span>
                         </td>
-                        <td>{project.created_at}</td>
-                        <td>{project.due_date}</td>
-                        <td>{project.createdBy.name}</td>
+                        <td>{task.created_at}</td>
+                        <td>{task.due_date}</td>
+                        <td>{task.createdBy.name}</td>
                         <td className="paddingIcons">
                           <div className="d-flex">
                           <Link
-                            href={route("project.edit", project.id)}
+                            href={route("task.edit", task.id)}
                             className="btn"
                           >
                             <i className="bi bi-pencil fs-5 text-warning"></i>
                           </Link>
                           <Link
-                            href={route("project.destroy", project.id)}
+                            href={route("task.destroy", task.id)}
                             className="btn"
                           >
                             <i className="bi bi-trash3 text-danger fs-5"></i>
@@ -187,7 +180,7 @@ export default function index({ auth, projects, queryParams = null }) {
                   </tbody>
                 </table>
               </div>
-              <Pagination links={projects.meta.links} />
+              <Pagination links={tasks.meta.links} />
             </div>
           </div>
         </div>
