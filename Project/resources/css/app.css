@@ -58,3 +58,14 @@ tbody td {
     color: lightskyblue !important;
     text-decoration: underline !important;
 }
+
+.widthDesc {
+    width: 70em !important;
+}
+
+.paddingCancel {
+    padding: 0.5em !important;
+}
+.paddingSubmit {
+    padding: 0.4em !important;
+}

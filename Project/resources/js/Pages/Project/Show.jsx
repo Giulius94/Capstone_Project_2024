@@ -1,8 +1,9 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants";
 import { Head } from "@inertiajs/react";
+import TasksTable from "../Task/TasksTable";
 
-export default function Show({ auth, project }) {
+export default function Show({ auth, project, queryParams, tasks }) {
   console.log(JSON.stringify(project));
   console.log(auth.user);
   return (
@@ -86,9 +87,21 @@ export default function Show({ auth, project }) {
                   <label className="font-bold text-lg text-white">
                     Project Description
                   </label>
-                  <p className="mt-1 text-white">{project.description}</p>
+                  <p className="mt-1 text-white widthDesc">
+                    {project.description}
+                  </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* under section */}
+      <div className="pb-12">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 text-gray-900 backgroundDiv">
+              <TasksTable tasks={tasks} queryParams={queryParams} hideProjectColumn={true}/>
             </div>
           </div>
         </div>
