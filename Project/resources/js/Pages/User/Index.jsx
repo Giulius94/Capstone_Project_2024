@@ -1,15 +1,10 @@
 import Pagination from "@/Components/Pagination";
-import SelectInput from "@/Components/SelectInput";
 import TableHeading from "@/Components/TableHeading";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import {
-  PROJECT_STATUS_CLASS_MAP,
-  PROJECT_STATUS_TEXT_MAP,
-} from "@/constants.jsx";
 import { Head, Link, router } from "@inertiajs/react";
 
-export default function index({ auth, projects, queryParams = null, success }) {
+export default function index({ auth, users, queryParams = null, success }) {
   queryParams = queryParams || {};
   const searchFieldChanged = (name, value) => {
     if (value) {
@@ -18,7 +13,7 @@ export default function index({ auth, projects, queryParams = null, success }) {
       delete queryParams[name];
     }
 
-    router.get(route("project.index"), queryParams);
+    router.get(route("user.index"), queryParams);
   };
 
   const onKeyPress = (name, e) => {
@@ -37,15 +32,15 @@ export default function index({ auth, projects, queryParams = null, success }) {
       queryParams.sort_field = name;
       queryParams.sort_direction = "asc";
     }
-    router.get(route("project.index"), queryParams);
+    router.get(route("user.index"), queryParams);
   };
 
-  const deleteProject = (project) => {
-    if (!window.confirm("Are you sure you want to delete this project?")) 
+  const deleteUser = (user) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) 
     {
       return;
     }
-    router.delete(route("project.destroy", project.id));
+    router.delete(route("user.destroy", user.id));
   }
 
   return (
@@ -54,11 +49,11 @@ export default function index({ auth, projects, queryParams = null, success }) {
       header={
         <div className="flex justify-between items-center">
           <h2 className="font-semibold text-xl text-gray-800 text-center fst-italic leading-tight">
-            Projects
+            Users
           </h2>
           <Link
             className="bg-emerald-500 text-decoration-none hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
-            href={route("project.create")}
+            href={route("user.create")}
             role="button"
           >
             Add new
@@ -66,7 +61,7 @@ export default function index({ auth, projects, queryParams = null, success }) {
         </div>
       }
     >
-      <Head title="Projects" />
+      <Head title="Users" />
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           {success && (
@@ -86,29 +81,25 @@ export default function index({ auth, projects, queryParams = null, success }) {
                         sort_direction={queryParams.sort_direction}
                         sortChanged={sortChanged}
                       >
-                        {" "}
+                        
                         ID
                       </TableHeading>
-                      <th scope="col" className="thPadding">
-                        Image
-                      </th>
                       <TableHeading
                         name="name"
                         sort_field={queryParams.sort_field}
                         sort_direction={queryParams.sort_direction}
                         sortChanged={sortChanged}
                       >
-                        {" "}
+                        
                         Name
                       </TableHeading>
                       <TableHeading
-                        name="status"
+                        name="email"
                         sort_field={queryParams.sort_field}
                         sort_direction={queryParams.sort_direction}
                         sortChanged={sortChanged}
                       >
-                        {" "}
-                        Status
+                       Email
                       </TableHeading>
                       <TableHeading
                         name="created_at"
@@ -116,21 +107,10 @@ export default function index({ auth, projects, queryParams = null, success }) {
                         sort_direction={queryParams.sort_direction}
                         sortChanged={sortChanged}
                       >
-                        {" "}
+               
                         Create Date
                       </TableHeading>
-                      <TableHeading
-                        name="due_date"
-                        sort_field={queryParams.sort_field}
-                        sort_direction={queryParams.sort_direction}
-                        sortChanged={sortChanged}
-                      >
-                        {" "}
-                        Due Date
-                      </TableHeading>
-                      <th scope="col" className="thPadding">
-                        Created by
-                      </th>
+                  
                       <th scope="col" className="thPadding">
                         Actions
                       </th>
@@ -139,12 +119,11 @@ export default function index({ auth, projects, queryParams = null, success }) {
                   <thead>
                     <tr>
                       <th scope="col"></th>
-                      <th scope="col"></th>
                       <th scope="col">
                         <TextInput
                           defaultValue={queryParams.name}
                           className="w-full text-white bg-black"
-                          placeholder="Search Project Name"
+                          placeholder="User Name"
                           onBlur={(e) =>
                             searchFieldChanged("name", e.target.value)
                           }
@@ -152,68 +131,41 @@ export default function index({ auth, projects, queryParams = null, success }) {
                         />
                       </th>
                       <th scope="col">
-                        <SelectInput
-                          defaultValue={queryParams.status}
-                          className="w-full"
-                          onChange={(e) =>
-                            searchFieldChanged("status", e.target.value)
+                      <TextInput
+                          defaultValue={queryParams.email}
+                          className="w-full text-white bg-black"
+                          placeholder="User Email"
+                          onBlur={(e) =>
+                            searchFieldChanged("email", e.target.value)
                           }
-                        >
-                          <option value="">Search</option>
-                          <option value="pending">Pending</option>
-                          <option value="in_progress">In Progress</option>
-                          <option value="completed">Completed</option>
-                        </SelectInput>
+                          onKeyPress={(e) => onKeyPress("email", e)}
+                        />
                       </th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
                       <th scope="col"></th>
                       <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {projects.data.map((project) => (
-                      <tr key={project.id}>
-                        <td>{project.id}</td>
-                        <td className="paddingImg">
-                          <img
-                            src={project.image_path}
-                            alt="image"
-                            width="100"
-                            height="100"
-                          />
-                        </td>
-                        <td className="px-3 py-5 text-nowrap projectDetails">
-                          <Link
-                            href={route("project.show", project.id)}
-                            className="projectDetails"
-                          >
-                            {project.name}
-                          </Link>
-                        </td>
+                    {users.data.map((user) => (
+                      <tr key={user.id}>
+                        <td>{user.id}</td>
+                        <th className="px-3 py-5 text-nowrap userDetails">
+                            {user.name}
+                        </th>
                         <td>
-                          <span
-                            className={
-                              "px-2 py-1 rounded text-white text-nowrap " +
-                              PROJECT_STATUS_CLASS_MAP[project.status]
-                            }
-                          >
-                            {PROJECT_STATUS_TEXT_MAP[project.status]}
-                          </span>
+                        {user.email}
                         </td>
-                        <td>{project.created_at}</td>
-                        <td>{project.due_date}</td>
-                        <td>{project.createdBy.name}</td>
+                        <td>{user.created_at}</td>
                         <td className="paddingIcons">
                           <div className="d-flex">
                             <Link
-                              href={route("project.edit", project.id)}
+                              href={route("user.edit", user.id)}
                               className="btn"
                             >
                               <i className="bi bi-pencil fs-5 text-warning"></i>
                             </Link>
                             <button
-                              onClick={(e) => deleteProject(project)}
+                              onClick={(e) => deleteUser(user)}
                               className="btn"
                             >
                               <i className="bi bi-trash3 text-danger fs-5"></i>
@@ -225,7 +177,7 @@ export default function index({ auth, projects, queryParams = null, success }) {
                   </tbody>
                 </table>
               </div>
-              <Pagination links={projects.meta.links} />
+              <Pagination links={users.meta.links} />
             </div>
           </div>
         </div>

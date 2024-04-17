@@ -22,3 +22,51 @@ header h2 {
 .bgNav {
     background-color: #1f2836 !important;
 }
+
+tbody td {
+    padding-top: 3em !important;
+}
+
+.paddingImg {
+    padding-top: 2em !important;
+    padding-bottom: 1em !important;
+}
+
+.fontSize  {
+    font-size: 1em !important;
+    margin-top: -0.3em !important;
+}
+.fontColor  {
+    color: greenyellow !important;
+}
+
+.thPadding {
+    padding-bottom: 1em !important;
+}
+
+.paddingIcons {
+    padding: 0 !important;
+    padding-top: 2.2em !important;
+}
+
+.projectDetails {
+    color: white !important;
+    text-decoration: none !important;
+    text-wrap: wrap !important;
+}
+
+.projectDetails:hover {
+    color: lightskyblue !important;
+    text-decoration: underline !important;
+}
+
+.widthDesc {
+    width: 70em !important;
+}
+
+.paddingCancel {
+    padding: 0.5em !important;
+}
+.paddingSubmit {
+    padding: 0.4em !important;
+}

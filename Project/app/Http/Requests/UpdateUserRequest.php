@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
-class StoreProjectRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,11 @@ class StoreProjectRequest extends FormRequest
      */
     public function rules(): array
     {
+        $user = $this->route("user");
         return [
-            "name" => ["required","max:255"],
-            "image" => ["nullable","image"],
-            "description" => ["string"],
-            "due_date" => ["nullable","date"],
-            "status" => ["required",Rule::in(["pending", "in_progress", "completed"])],
+            'name'=>['required','string','max:255'],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
+            'password' => ['confirmed','nullable', Password::min(8)->letters()->symbols()],
         ];
     }
 }

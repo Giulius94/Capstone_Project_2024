@@ -12,7 +12,7 @@ export default function Dashboard({ auth }) {
             <div className="py-12 bgNav">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-white">You're logged in!</div>
+                        <div className="p-6 text-white">Welcome to your Projects!</div>
                     </div>
                 </div>
             </div>

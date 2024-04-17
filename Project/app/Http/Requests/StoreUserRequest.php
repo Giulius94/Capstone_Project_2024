@@ -3,10 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
-class StoreProjectRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +23,9 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required","max:255"],
-            "image" => ["nullable","image"],
-            "description" => ["string"],
-            "due_date" => ["nullable","date"],
-            "status" => ["required",Rule::in(["pending", "in_progress", "completed"])],
+            'name'=>['required','string','max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'unique:users,email'],
+            'password' => ['required','confirmed', Password::min(8)->letters()->symbols()],
         ];
     }
 }
