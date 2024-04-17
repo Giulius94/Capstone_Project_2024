@@ -2,7 +2,6 @@ import Pagination from "@/Components/Pagination";
 import TableHeading from "@/Components/TableHeading";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-
 import { Head, Link, router } from "@inertiajs/react";
 
 export default function index({ auth, users, queryParams = null, success }) {
@@ -124,7 +123,7 @@ export default function index({ auth, users, queryParams = null, success }) {
                         <TextInput
                           defaultValue={queryParams.name}
                           className="w-full text-white bg-black"
-                          placeholder="Search User Name"
+                          placeholder="User Name"
                           onBlur={(e) =>
                             searchFieldChanged("name", e.target.value)
                           }
@@ -133,7 +132,7 @@ export default function index({ auth, users, queryParams = null, success }) {
                       </th>
                       <th scope="col">
                       <TextInput
-                          defaultValue={queryParams.name}
+                          defaultValue={queryParams.email}
                           className="w-full text-white bg-black"
                           placeholder="User Email"
                           onBlur={(e) =>
@@ -142,8 +141,6 @@ export default function index({ auth, users, queryParams = null, success }) {
                           onKeyPress={(e) => onKeyPress("email", e)}
                         />
                       </th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
                       <th scope="col"></th>
                       <th scope="col"></th>
                     </tr>

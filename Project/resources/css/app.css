@@ -52,6 +52,7 @@ tbody td {
 .projectDetails {
     color: white !important;
     text-decoration: none !important;
+    text-wrap: wrap !important;
 }
 
 .projectDetails:hover {

@@ -194,7 +194,7 @@ export default function index({ auth, projects, queryParams = null, success }) {
                         <td>
                           <span
                             className={
-                              "px-2 py-1 rounded text-white " +
+                              "px-2 py-1 rounded text-white text-nowrap " +
                               PROJECT_STATUS_CLASS_MAP[project.status]
                             }
                           >
