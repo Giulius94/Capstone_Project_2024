@@ -14,13 +14,18 @@ export default function Show({ auth, project, success, queryParams, tasks }) {
           <h2 className="font-semibold text-xl text-gray-800 text-center fst-italic leading-tight">
           {project ? `Project "${project.name}"` : "Loading project..."}
         </h2>
-        <Link
+        {auth.user.id === project.createdBy.id && (
+        <>
+         <Link
         className="bg-emerald-500 text-decoration-none hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
         href={route("project.edit", project.id)}
         role="button"
       >
         Edit
       </Link>
+        </>
+        )}
+       
         </div>
       }
     >

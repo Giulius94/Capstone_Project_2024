@@ -164,12 +164,15 @@ export default function TasksTable({
                   />
                 </td>
                 {!hideProjectColumn && (
-  <td>
-    <Link href={route('project.show', task.project.id)} className="projectDetails">
-      {task.project.name}
-    </Link>
-  </td>
-)}
+                  <td>
+                    <Link
+                      href={route("project.show", task.project.id)}
+                      className="projectDetails"
+                    >
+                      {task.project.name}
+                    </Link>
+                  </td>
+                )}
                 <td className="px-3 py-5 text-nowrap projectDetails">
                   <Link
                     href={route("task.show", task.id)}
@@ -193,7 +196,7 @@ export default function TasksTable({
                 <td>{task.createdBy.name}</td>
                 <td className="paddingIcons">
                   <div className="d-flex">
-                    {auth.user.id === task.createdBy.id  && (
+                    {auth.user.id === task.createdBy.id && (
                       <>
                         <Link
                           href={route("task.edit", task.id)}

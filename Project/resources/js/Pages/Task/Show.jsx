@@ -13,13 +13,18 @@ export default function Show({ auth, task }) {
         <h2 className="font-semibold text-xl text-gray-800 text-center fst-italic leading-tight">
           {task ? `Task "${task.name}"` : "Loading task..."}
         </h2>
-        <Link
+        {auth.user.id === task.createdBy.id && (
+        <>
+          <Link
         className="bg-emerald-500 text-decoration-none hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
         href={route("task.edit", task.id)}
         role="button"
       >
         Edit
       </Link>
+        </>
+        )}
+      
         </div>
       }
     >
