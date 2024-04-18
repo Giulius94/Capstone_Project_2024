@@ -42,13 +42,16 @@ export default function AuthenticatedLayout({ user, header, children }) {
                 >
                   All Tasks
                 </NavLink>
-                <NavLink
-                  href={route("user.index")}
-                  active={route().current("user.index")}
-                  className="text-white text-decoration-none"
-                >
-                  Users
-                </NavLink>
+                {user.is_admin === 1 ? (
+                    <NavLink
+                    href={route("user.index")}
+                    active={route().current("user.index")}
+                    className="text-white text-decoration-none"
+                  >
+                    Users
+                  </NavLink>
+                ): null}
+              
                 <NavLink
                   href={route("task.myTasks")}
                   active={route().current("task.myTasks")}
