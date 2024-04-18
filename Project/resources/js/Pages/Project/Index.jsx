@@ -41,13 +41,12 @@ export default function index({ auth, projects, queryParams = null, success }) {
   };
 
   const deleteProject = (project) => {
-    if (!window.confirm("Are you sure you want to delete this project?")) 
-    {
+    if (!window.confirm("Are you sure you want to delete this project?")) {
       return;
     }
     router.delete(route("project.destroy", project.id));
-  }
-
+  };
+  console.log(auth.user.is_admin);
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -206,18 +205,23 @@ export default function index({ auth, projects, queryParams = null, success }) {
                         <td>{project.createdBy.name}</td>
                         <td className="paddingIcons">
                           <div className="d-flex">
-                            <Link
-                              href={route("project.edit", project.id)}
-                              className="btn"
-                            >
-                              <i className="bi bi-pencil fs-5 text-warning"></i>
-                            </Link>
-                            <button
-                              onClick={(e) => deleteProject(project)}
-                              className="btn"
-                            >
-                              <i className="bi bi-trash3 text-danger fs-5"></i>
-                            </button>
+                            {(auth.user.id === project.createdBy.id ||
+                              auth.user.is_admin === 1) && (
+                              <>
+                                <Link
+                                  href={route("project.edit", project.id)}
+                                  className="btn"
+                                >
+                                  <i className="bi bi-pencil fs-5 text-warning"></i>
+                                </Link>
+                                <button
+                                  onClick={() => deleteProject(project)}
+                                  className="btn"
+                                >
+                                  <i className="bi bi-trash3 text-danger fs-5"></i>
+                                </button>
+                              </>
+                            )}
                           </div>
                         </td>
                       </tr>

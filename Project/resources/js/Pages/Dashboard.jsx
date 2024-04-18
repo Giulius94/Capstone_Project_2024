@@ -65,8 +65,8 @@ export default function Dashboard({
               <h3 className=" text-gray-200 text-nowrap text-xl font-semibold">
                 My Active Tasks
               </h3>
-
-              <table class="table table-dark  border-white">
+              <div className="overflow-x-auto">
+              <table class="table table-dark w-full text-left border-white">
                 <thead className="text-md text-gray-700 uppercase bg-gray-50 border-b-2 border-gray-600">
                     <tr>
                         <th className="px-3 py-3">ID</th>
@@ -107,6 +107,7 @@ export default function Dashboard({
                 ))}
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </div>
