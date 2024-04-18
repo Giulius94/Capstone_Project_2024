@@ -1,22 +1,21 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants";
+import { TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP, TASK_PRIORITY_CLASS_MAP, TASK_PRIORITY_TEXT_MAP } from "@/constants";
 import { Head, Link } from "@inertiajs/react";
-import TasksTable from "../Task/TasksTable";
 
-export default function Show({ auth, project, success, queryParams, tasks }) {
-  console.log(JSON.stringify(project));
+export default function Show({ auth, task }) {
+  console.log(JSON.stringify(task));
   console.log(auth.user);
   return (
     <AuthenticatedLayout
       user={auth.user}
       header={
         <div className="flex justify-between items-center">
-          <h2 className="font-semibold text-xl text-gray-800 text-center fst-italic leading-tight">
-          {project ? `Project "${project.name}"` : "Loading project..."}
+        <h2 className="font-semibold text-xl text-gray-800 text-center fst-italic leading-tight">
+          {task ? `Task "${task.name}"` : "Loading task..."}
         </h2>
         <Link
         className="bg-emerald-500 text-decoration-none hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded"
-        href={route("project.edit", project.id)}
+        href={route("task.edit", task.id)}
         role="button"
       >
         Edit
@@ -24,13 +23,13 @@ export default function Show({ auth, project, success, queryParams, tasks }) {
         </div>
       }
     >
-      <Head title={`Project "${project.name}"`} />
+      <Head title={`Task "${task.name}"`} />
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div>
               <img
-                src={project.image_path}
+                src={task.image_path}
                 alt="image"
                 className="w-full  object-cover"
               />
@@ -40,36 +39,50 @@ export default function Show({ auth, project, success, queryParams, tasks }) {
                 <div>
                   <div>
                     <label className="font-bold text-lg text-white">
-                      Project ID
+                      Task ID
                     </label>
-                    <p className="mt-1 text-white">{project.id}</p>
+                    <p className="mt-1 text-white">{task.id}</p>
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg text-white">
-                      Project Name
+                      Task Name
                     </label>
-                    <p className="mt-1 text-white">{project.name}</p>
+                    <p className="mt-1 text-white">{task.name}</p>
                   </div>
 
                   <div className="mt-4">
                     <label className="font-bold text-lg text-white">
-                      Project Status
+                      Task Priority
                     </label>
                     <p className="mt-1 text-white"></p>
                     <span
                       className={
                         "px-2 py-1 rounded text-white " +
-                        PROJECT_STATUS_CLASS_MAP[project.status]
+                        TASK_PRIORITY_CLASS_MAP[task.priority]
                       }
                     >
-                      {PROJECT_STATUS_TEXT_MAP[project.status]}
+                      {TASK_PRIORITY_TEXT_MAP[task.priority]}
+                    </span>
+                  </div>
+                  <div className="mt-4">
+                    <label className="font-bold text-lg text-white">
+                      Task Status
+                    </label>
+                    <p className="mt-1 text-white"></p>
+                    <span
+                      className={
+                        "px-2 py-1 rounded text-white " +
+                        TASK_STATUS_CLASS_MAP[task.status]
+                      }
+                    >
+                      {TASK_STATUS_TEXT_MAP[task.status]}
                     </span>
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg text-white">
                       Created By
                     </label>
-                    <p className="mt-1 text-white">{project.createdBy.name}</p>
+                    <p className="mt-1 text-white">{task.createdBy.name}</p>
                   </div>
                 </div>
                 <div>
@@ -77,27 +90,44 @@ export default function Show({ auth, project, success, queryParams, tasks }) {
                     <label className="font-bold text-lg text-white">
                       Due Date
                     </label>
-                    <p className="mt-1 text-white">{project.due_date}</p>
+                    <p className="mt-1 text-white">{task.due_date}</p>
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg text-white">
                       Create Date
                     </label>
-                    <p className="mt-1 text-white">{project.created_at}</p>
+                    <p className="mt-1 text-white">{task.created_at}</p>
                   </div>
                   <div className="mt-4">
                     <label className="font-bold text-lg text-white">
                       Updated By
                     </label>
-                    <p className="mt-1 text-white">{project.updatedBy.name}</p>
+                    <p className="mt-1 text-white">{task.updatedBy.name}</p>
                   </div>
-                </div>
+                  <div className="mt-4">
+                    <label className="font-bold text-lg text-white">
+                      Project
+                    </label>
+                    <p className="mt-1">
+                    <Link className="text-nowrap projectDetails" href={route("project.show", task.project.id)}>
+                    {task.project.name}
+                    </Link>
+                    </p>
+                  </div>
+                
+                  <div className="mt-4">
+                    <label className="font-bold text-lg text-white">
+                      Assigned User
+                    </label>
+                    <p className="mt-1 text-white">{task.assignedUser.name}</p>
+                  </div>
+                  </div>
                 <div className="mt-4">
                   <label className="font-bold text-lg text-white">
-                    Project Description
+                    Task Description
                   </label>
                   <p className="mt-1 text-white widthDesc">
-                    {project.description}
+                    {task.description}
                   </p>
                 </div>
               </div>
@@ -109,9 +139,6 @@ export default function Show({ auth, project, success, queryParams, tasks }) {
       <div className="pb-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div className="p-6 text-gray-900 backgroundDiv">
-              <TasksTable tasks={tasks} queryParams={queryParams} hideProjectColumn={true} success={success}/>
-            </div>
           </div>
         </div>
       </div>
