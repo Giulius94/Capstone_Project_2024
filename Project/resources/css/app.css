@@ -70,3 +70,7 @@ tbody td {
 .paddingSubmit {
     padding: 0.4em !important;
 }
+
+.bgProfile {
+    background-color: transparent !important;
+}

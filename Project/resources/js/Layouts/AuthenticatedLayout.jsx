@@ -26,7 +26,7 @@ export default function AuthenticatedLayout({ user, header, children }) {
                   active={route().current("dashboard")}
                   className="text-white text-decoration-none"
                 >
-                  Homepage
+                  Dashboard
                 </NavLink>
                 <NavLink
                   href={route("project.index")}
